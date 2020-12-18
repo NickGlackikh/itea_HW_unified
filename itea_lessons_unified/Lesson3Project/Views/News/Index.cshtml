@@ -1,0 +1,30 @@
+﻿@{
+    Layout="~/Views/Shared/_Layout.cshtml";
+}
+
+@section NewsBlock
+{
+    <table>
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Title</td>
+                <td>Text</td>
+                <td>AuthorName</td>
+                <td>IsFake</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var newsItem in ViewBag.Content)
+            {
+                <tr>
+                    <td>@newsItem.Id</td>
+                    <td>@newsItem.Title</td>
+                    <td>@newsItem.Text</td>
+                    <td>@newsItem.AuthorName</td>
+                    <td>@newsItem.IsFake</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
