@@ -8,23 +8,23 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\nikolay.glatskikh\\.nuget\\packages\\": {},
+    "C:\\Users\\nglac\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\work\\itea_lessons_unified\\Lesson3Project\\Lesson3Project.csproj",
+      "projectUniqueName": "D:\\Работа\\Coding\\Lessons\\itea_HW_unified\\itea_lessons_unified\\Lesson3Project\\Lesson3Project.csproj",
       "projectName": "Lesson3Project",
-      "projectPath": "C:\\work\\itea_lessons_unified\\Lesson3Project\\Lesson3Project.csproj",
-      "packagesPath": "C:\\Users\\nikolay.glatskikh\\.nuget\\packages\\",
-      "outputPath": "C:\\work\\itea_lessons_unified\\Lesson3Project\\obj\\",
+      "projectPath": "D:\\Работа\\Coding\\Lessons\\itea_HW_unified\\itea_lessons_unified\\Lesson3Project\\Lesson3Project.csproj",
+      "packagesPath": "C:\\Users\\nglac\\.nuget\\packages\\",
+      "outputPath": "D:\\Работа\\Coding\\Lessons\\itea_HW_unified\\itea_lessons_unified\\Lesson3Project\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\nikolay.glatskikh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\nglac\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

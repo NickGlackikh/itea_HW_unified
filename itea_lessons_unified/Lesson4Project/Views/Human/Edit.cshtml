@@ -1,0 +1,36 @@
+﻿@model Human
+@using (Html.BeginForm("UpdateHuman", "Human", "@Model.Id", FormMethod.Post))
+{
+<p>
+    @Html.Hidden("Id")
+    @Html.Label("FirstName", "FirstName")
+    @Html.TextBox("FirstName")
+</p>
+
+    <p>
+        @Html.Label("LastName", "LastName")
+        @Html.TextBox("LastName")
+    </p>
+
+    <p>
+        @Html.Label("Age", "Age")
+        @Html.EditorFor(m => m.Age)
+        <br />
+        @Html.Label("Gender", "Gender")
+        @Html.RadioButton("Gender", "Male")
+        <span>Male</span>
+        @Html.RadioButton("Gender", "Female")
+        <span>Female</span>
+
+    </p>
+    <p>
+        @Html.Label("IsSick", "IsSick")
+        @Html.CheckBox("IsSick")
+    </p>
+    @Html.Label("CountryId", "Country")
+    @Html.DropDownList("CountryId", ViewBag.CountryList as SelectList)
+
+    <p>
+        <input type="submit" value="Save" />
+    </p>
+}

@@ -1,0 +1,29 @@
+﻿@model List<Human>
+@{
+    ViewData["Title"] = "Humans";
+}
+
+<a asp-action="Create" asp-controller="Human">Create New</a>
+<table class="table" style="text-align: center">
+    <tr>
+        <th>Id</th>
+        <th>FirstName</th>
+        <th>LastName</th>
+        <th>Age</th>
+        <th>IsSick</th>
+        <th>Gender</th>
+    </tr>
+    @foreach (var human in Model)
+    {
+<tr>
+    <td>@human.Id</td>
+    <td>@human.FirstName</td>
+    <td>@human.LastName</td>
+    <td>@human.Age</td>
+    <td>@human.IsSick</td>
+    <td>@human.Gender</td>
+    <td><a asp-action="Edit" asp-controller="Human" asp-route-id="@human.Id">Edit</a></td>
+    <td><a asp-action="DeleteHuman" asp-controller="Human" asp-route-id="@human.Id">Delete</a></td>
+</tr>
+    }
+</table>
