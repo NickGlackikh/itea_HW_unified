@@ -27,7 +27,7 @@ namespace Lesson4Project
             services.AddControllersWithViews();
             
             services.AddDbContext<InfestationDbContext>();
-            services.AddTransient<IHumanRepository>();
+            services.AddScoped<IHumanRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

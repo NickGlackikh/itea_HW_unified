@@ -19,20 +19,15 @@ namespace Lesson4Project.Controllers
             context = _context;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int ?id)
         {
+            if(id!=null && id>0)
+            {
+                return View(rep.GetAllHumans().Where(x=>x.Id==id).ToList());
+            }
             return View(rep.GetAllHumans());
         }
 
-        public ActionResult FindById(int id)
-        {
-            if(id==0)
-            {
-                return Redirect("~/Human/Index");
-            }
-
-            return View(rep.GetHuman(id));
-        }
 
         public IActionResult Country(string countryName)
         {
