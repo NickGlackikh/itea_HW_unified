@@ -1,0 +1,24 @@
+﻿@model Human
+@{
+    ViewData["Title"] = "Humans";
+}
+
+<table class="table" style="text-align: center">
+    <tr>
+        <th>Id</th>
+        <th>FirstName</th>
+        <th>LastName</th>
+        <th>Age</th>
+        <th>IsSick</th>
+        <th>Gender</th>
+    </tr>
+        <tr>
+            <td>@Model.Id</td>
+            <td>@Model.FirstName</td>
+            <td>@Model.LastName</td>
+            <td>@Model.Age</td>
+            <td>@Model.IsSick</td>
+            <td>@Model.Gender</td>
+        </tr>
+
+</table>

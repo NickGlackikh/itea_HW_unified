@@ -1,0 +1,31 @@
+﻿@model List<Country>
+@{
+    ViewData["Title"] = "Countries";
+}
+
+<a asp-action="Create" asp-controller="Country">Create New</a>
+<table class="table" style="text-align: center">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Population</th>
+        <th>SickCount</th>
+        <th>DeadCount</th>
+        <th>RecoveredCount</th>
+        <th>Vaccine</th>
+    </tr>
+    @foreach (var country in Model)
+    {
+<tr>
+    <td>@country.Id</td>
+    <td>@country.Name</td>
+    <td>@country.Population</td>
+    <td>@country.SickCount</td>
+    <td>@country.DeadCount</td>
+    <td>@country.RecoveredCount</td>
+    <td>@country.Vaccine</td>
+    <td><a asp-action="Edit" asp-controller="Country" asp-route-id="@country.Id">Edit</a></td>
+     <td><a asp-action="Delete" asp-controller="Country" asp-route-id="@country.Id">Delete</a></td>
+</tr>
+    }
+</table>

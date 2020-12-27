@@ -1,0 +1,31 @@
+﻿@*@{
+    ViewData["Title"] = "Country";
+}
+
+<p>@ViewData["CountryName"]</p>*@
+
+@{
+    ViewData["Title"] = "Humans";
+}
+
+<table class="table" style="text-align: center">
+    <tr>
+        <th>Id</th>
+        <th>FirstName</th>
+        <th>LastName</th>
+        <th>Age</th>
+        <th>IsSick</th>
+        <th>Gender</th>
+    </tr>
+    @foreach (var human in ViewData["Humans"] as List<Human>)
+    {
+        <tr>
+            <td>@human.Id</td>
+            <td>@human.FirstName</td>
+            <td>@human.LastName</td>
+            <td>@human.Age</td>
+            <td>@human.IsSick</td>
+            <td>@human.Gender</td>
+        </tr>
+    }
+</table>

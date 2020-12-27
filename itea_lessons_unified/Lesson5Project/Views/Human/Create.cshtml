@@ -1,0 +1,53 @@
+﻿
+
+@using (Html.BeginForm("CreateHuman", "Human", FormMethod.Post))
+{
+    <p>
+        @Html.Label("FirstName", "FirstName")
+        @Html.TextBox("FirstName")
+    </p>
+
+    <p>
+        @Html.Label("LastName", "LastName")
+        @Html.TextBox("LastName")
+    </p>
+
+    <p>
+        @Html.Label("Age", "Age")
+        @Html.TextBox("Age", "", new { type = "number" })
+        <br />
+        @Html.Label("Gender", "Gender")
+        @Html.RadioButton("Gender", "Male", true)
+        <span>Male</span>
+        @Html.RadioButton("Gender", "Female")
+        <span>Female</span>
+
+    </p>
+    <p>
+        @Html.Label("IsSick", "IsSick")
+        @Html.CheckBox("IsSick", false)
+    </p>
+    @Html.Label("CountryId", "Country")
+    @Html.DropDownList("CountryId", ViewBag.CountryList as SelectList, "--Select Country--")
+
+    @Html.Label("DistrictId", "District")
+    @Html.DropDownList("DistrictId", ViewBag.DistrictList as SelectList, "--Select District--")
+
+    <p>
+        <input type="submit" value="Отправить" />
+    </p>
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#CountryId").change(() => {
+                $.get("/Human/GetCountryDistricts", {_countryId: $("#CountryId").val() }, (data) => {
+                    $("#DistrictId").empty();
+                    $.each(data, (index, row) => {
+                        $("#DistrictId").append("<option value='"+row.id+"'>"+row.districtName+"</option>")
+                    })
+                });
+            })
+  });
+    </script>
+}

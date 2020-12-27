@@ -1,0 +1,38 @@
+﻿
+
+@using (Html.BeginForm("CreateCountry", "Country", FormMethod.Post))
+{
+    <p>
+        @Html.Label("Name", "Name")
+        @Html.TextBox("Name")
+    </p>
+
+    <p>
+        @Html.Label("Population", "Population")
+        @Html.TextBox("Population", "", new { type = "number" })
+    </p>
+
+    <p>
+        @Html.Label("SickCount", "SickCount")
+        @Html.TextBox("SickCount", "", new { type = "number" })
+    </p>
+
+    <p>
+        @Html.Label("DeadCount", "DeadCount")
+        @Html.TextBox("DeadCount", "", new { type = "number" })
+    </p>
+
+    <p>
+        @Html.Label("RecoveredCount", "RecoveredCount")
+        @Html.TextBox("RecoveredCount", "", new { type = "number" })
+    </p>
+
+    <p>
+        @Html.Label("Vaccine", "Vaccine")
+        @Html.CheckBox("Vaccine", false)
+    </p>
+
+    <p>
+        <input type="submit" value="Add" />
+    </p>
+}
