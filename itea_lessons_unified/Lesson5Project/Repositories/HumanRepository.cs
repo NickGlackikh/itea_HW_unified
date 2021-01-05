@@ -37,7 +37,6 @@ namespace Lesson5Project.Repositories
             {
                 dbContext.Humans.Remove(hum);
             }
-
         }
 
         public void ModifyHuman(Human human)
