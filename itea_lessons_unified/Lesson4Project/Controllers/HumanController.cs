@@ -1,4 +1,5 @@
 ﻿using Lesson4Project.Models;
+using Lesson4Project.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,49 +12,61 @@ namespace Lesson4Project.Controllers
 {
     public class HumanController : Controller
     {
-        private IHumanRepository rep { get; }
-        private InfestationDbContext context { get; }
-        public HumanController(IHumanRepository _rep, InfestationDbContext _context)
+        private  IHumanRepository humanRep { get; }
+        private  ICountryRepository countryRep { get; }
+        public HumanController(IHumanRepository _humanRep, ICountryRepository _countryRep)
         {
-            rep = _rep;
-            context = _context;
+            humanRep = _humanRep;
+            countryRep = _countryRep;
         }
 
         public ActionResult Index(int ?id)
         {
-            if(id!=null && id>0)
-            {
-                return View(rep.GetAllHumans().Where(x=>x.Id==id).ToList());
-            }
-            return View(rep.GetAllHumans());
-        }
+            IEnumerable<HumanIndexViewModel> humans;
 
+            humans = from h in humanRep.GetAllHumans()
+                     join c in countryRep.AllCountries() on h.CountryId equals c.Id
+                     select new HumanIndexViewModel 
+                     {
+                        Id= h.Id,
+                        FirstName=h.FirstName,
+                        LastName=h.LastName,
+                        Age=h.Age,
+                        CountryId=h.CountryId,
+                        Country =c.Name
+                     };
+            if (id != null && id > 0)
+            {
+                return View(humans.Where(x => x.Id == id));
+            }
+            return View(humans);
+        }
 
         public IActionResult Country(string countryName)
         {
-            ViewData["Humans"] = rep.GetHumansByCountry(countryName);
+            ViewData["Humans"] = humanRep.GetHumansByCountry(countryName);
             return View();
         }
 
         public IActionResult Create()
         {
-            List<Country> countries = context.Countries.ToList();
+            List<Country> countries = countryRep.AllCountries();
             ViewBag.CountryList = new SelectList(countries,"Id","Name");
             return View();
         }
 
         [HttpPost]
-        public IActionResult CreateHuman(Human h)
+        public IActionResult Create(Human h)
         {
-            rep.CreateHuman(h);
-            rep.CommitChanges();
+            humanRep.CreateHuman(h);
+            humanRep.CommitChanges();
             return Redirect("~/Human/Index");
         }
 
         public IActionResult Edit(int id)
         {
-            Human human = rep.GetHuman(id);
-            List<Country> countries = context.Countries.ToList();
+            Human human = humanRep.GetHuman(id);
+            List<Country> countries = countryRep.AllCountries();
             ViewBag.CountryList = new SelectList(countries, "Id", "Name", human.CountryId);
             return View(human);
         }
@@ -61,15 +74,15 @@ namespace Lesson4Project.Controllers
         [HttpPost]
         public IActionResult UpdateHuman(Human h)
         {
-            rep.ModifyHuman(h);
-            rep.CommitChanges();
+            humanRep.ModifyHuman(h);
+            humanRep.CommitChanges();
             return Redirect("~/Human/Index");
         }
         [HttpGet]
         public IActionResult DeleteHuman(int id)
         {
-            rep.KillHuman(id);
-            rep.CommitChanges();
+            humanRep.KillHuman(id);
+            humanRep.CommitChanges();
             return Redirect("~/Human/Index");
         }
 

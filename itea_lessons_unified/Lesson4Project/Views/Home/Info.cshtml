@@ -1,0 +1,51 @@
+﻿@using Lesson4Project.ViewModels;
+@model HomeInfoViewModel
+@{
+    ViewData["Title"] = "info - all data";
+}
+
+<table class="table" style="text-align: center">
+    <tr>
+        <th>Id</th>
+        <th>FirstName</th>
+        <th>LastName</th>
+        <th>Age</th>
+        <th>IsSick</th>
+        <th>Gender</th>
+    </tr>
+    @foreach (var human in Model.Humans)
+    {
+        <tr>
+            <td>@human.Id</td>
+            <td>@human.FirstName</td>
+            <td>@human.LastName</td>
+            <td>@human.Age</td>
+            <td>@human.IsSick</td>
+            <td>@human.Gender</td>
+        </tr>
+}
+</table>
+
+<table class="table" style="text-align: center">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Population</th>
+        <th>SickCount</th>
+        <th>DeadCount</th>
+        <th>RecoveredCount</th>
+        <th>Vaccine</th>
+    </tr>
+    @foreach (var country in Model.Countries)
+    {
+        <tr>
+            <td>@country.Id</td>
+            <td>@country.Name</td>
+            <td>@country.Population</td>
+            <td>@country.SickCount</td>
+            <td>@country.DeadCount</td>
+            <td>@country.RecoveredCount</td>
+            <td>@country.Vaccine</td>
+        </tr>
+    }
+</table>

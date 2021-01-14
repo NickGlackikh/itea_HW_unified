@@ -1,4 +1,5 @@
 ﻿using Lesson4Project.Models;
+using Lesson4Project.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,18 +12,27 @@ namespace Lesson4Project.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private IHumanRepository humanRep { get; }
+        private ICountryRepository countryRep { get; }
+        public object HomaInfoViewModel { get; private set; }
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IHumanRepository _humanRep, ICountryRepository _countryRep)
         {
-            _logger = logger;
+            humanRep = _humanRep;
+            countryRep = _countryRep;
         }
 
+        public IActionResult Info()
+        {
+            IEnumerable<Human> humans = humanRep.GetAllHumans();
+            IEnumerable<Country> countries = countryRep.AllCountries();
+            HomeInfoViewModel model = new HomeInfoViewModel(){ Humans= humans, Countries= countries };
+            return View(model);
+        }
         public IActionResult Index()
         {
             return View();
         }
-
         public IActionResult Privacy()
         {
             return View();

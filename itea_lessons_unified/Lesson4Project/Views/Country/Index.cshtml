@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Country>
+
+<a asp-action="Create" asp-controller="Country">Create New</a>
+<table class="table" style="text-align: center">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Population</th>
+        <th>SickCount</th>
+        <th>DeadCount</th>
+        <th>RecoveredCount</th>
+        <th>Vaccine</th>
+    </tr>
+    @foreach (var country in Model)
+    {
+<tr>
+    <td>@country.Id</td>
+    <td>@country.Name</td>
+    <td>@country.Population</td>
+    <td>@country.SickCount</td>
+    <td>@country.DeadCount</td>
+    <td>@country.RecoveredCount</td>
+    <td>@country.Vaccine</td>
+</tr>
+    }
+</table>
