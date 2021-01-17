@@ -1,36 +1,28 @@
-﻿
+﻿@model Human
+<form asp-controller="Human" asp-action="Create" method="post">
+    <span asp-validation-for="FirstName"></span>
+    <label asp-for="FirstName"></label><br>
+    <input asp-for="FirstName" type="text" /><br>
 
-@using (Html.BeginForm("Create", "Human", FormMethod.Post))
-{
-    <p>
-        @Html.Label("FirstName", "FirstName")
-        @Html.TextBox("FirstName")
-    </p>
+    <span asp-validation-for="LastName"></span>
+    <label asp-for="LastName"></label><br>
+    <input asp-for="LastName" type="text" /><br>
 
-    <p>
-        @Html.Label("LastName", "LastName")
-        @Html.TextBox("LastName")
-    </p>
+    <span asp-validation-for="Age"></span>
+    <label asp-for="Age"></label><br>
+    <input asp-for="Age" type="number" /><br>
 
-    <p>
-        @Html.Label("Age", "Age")
-        @Html.TextBox("Age", "", new { type = "number" })
-        <br />
-        @Html.Label("Gender", "Gender")
-        @Html.RadioButton("Gender", "Male", true)
-        <span>Male</span>
-        @Html.RadioButton("Gender", "Female")
-        <span>Female</span>
+    <span asp-validation-for="IsSick"></span>
+    <label asp-for="IsSick"></label><br>
+    <input asp-for="IsSick" type="checkbox" /><br>
 
-    </p>
-    <p>
-        @Html.Label("IsSick", "IsSick")
-        @Html.CheckBox("IsSick", false)
-    </p>
-    @Html.Label("CountryId", "Country")
-    @Html.DropDownList("CountryId", ViewBag.CountryList as SelectList)
+    <span asp-validation-for="Gender"></span>
+    <label asp-for="Gender"></label><br>
+    <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()" type="text"></select> <br />
 
-    <p>
-        <input type="submit" value="Create" />
-    </p>
-}
+    <span asp-validation-for="CountryId"></span>
+    <label asp-for="CountryId">Country</label><br>
+    <select asp-for="CountryId" asp-items="ViewBag.CountryList"></select><br>
+
+    <button type="submit">Create human</button>
+</form>

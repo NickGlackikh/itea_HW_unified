@@ -58,9 +58,16 @@ namespace Lesson4Project.Controllers
         [HttpPost]
         public IActionResult Create(Human h)
         {
-            humanRep.CreateHuman(h);
-            humanRep.CommitChanges();
-            return Redirect("~/Human/Index");
+            if(ModelState.IsValid)
+            {
+                humanRep.CreateHuman(h);
+                humanRep.CommitChanges();
+                return Redirect("~/Human/Index");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public IActionResult Edit(int id)
