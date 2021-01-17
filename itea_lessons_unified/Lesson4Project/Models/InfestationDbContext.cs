@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Lesson4Project.Models
 {
-    public class InfestationDbContext : IdentityDbContext
+    public class InfestationDbContext : IdentityDbContext<CustomUser>
     {
         
         public DbSet<Human> Humans { get; set; }

@@ -30,7 +30,7 @@ namespace Lesson4Project
             services.AddDbContext<InfestationDbContext>();
             services.AddScoped<IHumanRepository, HumanRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
-            services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<InfestationDbContext>();
+            services.AddIdentity<CustomUser,IdentityRole>().AddEntityFrameworkStores<InfestationDbContext>();
             //services.AddScoped<HumanRepository>();
         }
 
