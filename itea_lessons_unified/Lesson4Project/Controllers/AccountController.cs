@@ -1,4 +1,5 @@
-﻿using Lesson4Project.ViewModels;
+﻿using Lesson4Project.Models;
+using Lesson4Project.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,9 +12,9 @@ namespace Lesson4Project.Controllers
     public class AccountController:Controller
     {
 
-        private UserManager<IdentityUser> userManager;
-        private SignInManager<IdentityUser> signInManager;
-        public AccountController(UserManager<IdentityUser> _userManager, SignInManager<IdentityUser> _signInManager)
+        private UserManager<CustomUser> userManager;
+        private SignInManager<CustomUser> signInManager;
+        public AccountController(UserManager<CustomUser> _userManager, SignInManager<CustomUser> _signInManager)
         {
             userManager = _userManager;
             signInManager = _signInManager;
@@ -29,11 +30,9 @@ namespace Lesson4Project.Controllers
         [HttpPost]
         public IActionResult Register(AccountRegisterViewModel m)
         {
-
-            
             if(ModelState.IsValid)
             {
-                var user = new IdentityUser() { UserName = m.UserName, Email = m.Email };
+                var user = new CustomUser() { UserName = m.UserName, Email = m.Email, FirstName=m.FirstName, LastName = m.LastName };
                 var createTask = userManager.CreateAsync(user, m.Password);
 
                 if(createTask.Result.Succeeded)

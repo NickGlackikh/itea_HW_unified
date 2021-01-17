@@ -14,6 +14,14 @@ namespace Lesson4Project.ViewModels
         public string UserName { get; set; }
 
         [Required]
+        [RegularExpression("^[a-zA-Z]*$")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [RegularExpression("^[a-zA-Z]*$")]
+        public string LastName { get; set; }
+
+        [Required]
         [EmailAddress]
         public string Email { get; set; }
 
