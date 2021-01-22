@@ -1,5 +1,6 @@
 ﻿using Lesson4Project.Models;
 using Lesson4Project.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -48,6 +49,8 @@ namespace Lesson4Project.Controllers
             return View();
         }
 
+        [Authorize]
+        [HttpGet]
         public IActionResult Create()
         {
             List<Country> countries = countryRep.AllCountries();
@@ -70,7 +73,8 @@ namespace Lesson4Project.Controllers
             }
         }
 
-        public IActionResult Edit(int id)
+        [HttpGet]
+        public IActionResult Update(int id)
         {
             Human human = humanRep.GetHuman(id);
             List<Country> countries = countryRep.AllCountries();
@@ -79,11 +83,21 @@ namespace Lesson4Project.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateHuman(Human h)
+        public IActionResult Update(Human h)
         {
-            humanRep.ModifyHuman(h);
-            humanRep.CommitChanges();
-            return Redirect("~/Human/Index");
+            if (ModelState.IsValid)
+            {
+                humanRep.ModifyHuman(h);
+                humanRep.CommitChanges();
+                return Redirect("~/Human/Index");
+            }
+            else
+            {
+                List<Country> countries = countryRep.AllCountries();
+                ViewBag.CountryList = new SelectList(countries, "Id", "Name", h.CountryId);
+                return View(h);
+                // return Redirect("~/Human/Update/"+h.Id);
+            }
         }
         [HttpGet]
         public IActionResult DeleteHuman(int id)

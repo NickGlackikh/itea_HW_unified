@@ -10,22 +10,22 @@ namespace Lesson4Project.Models
 {
     public class InfestationDbContext : IdentityDbContext<CustomUser>
     {
-        
+        public InfestationDbContext(DbContextOptions<InfestationDbContext>options):base(options) { }
         public DbSet<Human> Humans { get; set; }
         public DbSet<Country> Countries { get; set; }
 
-        private IConfiguration configuration { get; }
 
-        public InfestationDbContext(IConfiguration _configuration)
-        {
-            configuration = _configuration;
-        }
+        //private IConfiguration configuration { get; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            //optionsBuilder.UseSqlServer(@"Server=DESKTOP-9C7TTKC\\SQLSERVER;Database=Infestation;Trusted_Connection=True;");
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString("InfestationDbConnectionNew")).UseLazyLoadingProxies();
-        }
+        //public InfestationDbContext(IConfiguration _configuration)
+        //{
+        //    configuration = _configuration;
+        //}
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer(configuration.GetConnectionString("InfestationDbConnectionNew")).UseLazyLoadingProxies();
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

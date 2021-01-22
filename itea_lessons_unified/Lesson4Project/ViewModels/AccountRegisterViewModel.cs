@@ -10,7 +10,6 @@ namespace Lesson4Project.ViewModels
     public class AccountRegisterViewModel//:IdentityUser
     {
         [Required]
-        [RegularExpression("^[a-zA-Z0-9]*$")]
         public string UserName { get; set; }
 
         [Required]

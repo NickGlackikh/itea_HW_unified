@@ -1,38 +1,28 @@
-﻿
-@model Country
-@using (Html.BeginForm("Create", "Country", FormMethod.Post))
-{
-    <p>
-        @Html.Label("Name", "Name")
-        @Html.TextBox("Name")
-    </p>
+﻿@model Country
+<form asp-controller="Country" asp-action="Create" method="post">
+    <span asp-validation-for="Name" class="text-danger"></span>
+    <label asp-for="Name"></label><br>
+    <input asp-for="Name" type="text" /><br>
 
-    <p>
-        @Html.Label("Population", "Population")
-        @Html.TextBox("Population", "", new { type = "number" })
-    </p>
+    <span asp-validation-for="Population" class="text-danger"></span>
+    <label asp-for="Population"></label><br>
+    <input asp-for="Population" type="number" /><br>
 
-    <p>
-        @Html.Label("SickCount", "SickCount")
-        @Html.TextBox("SickCount", "", new { type = "number" })
-    </p>
+    <span asp-validation-for="SickCount" class="text-danger"></span>
+    <label asp-for="SickCount"></label><br>
+    <input asp-for="SickCount" type="number" /><br>
 
-    <p>
-        @Html.Label("DeadCount", "DeadCount")
-        @Html.TextBox("DeadCount", "", new { type = "number" })
-    </p>
+    <span asp-validation-for="DeadCount" class="text-danger"></span>
+    <label asp-for="DeadCount"></label><br>
+    <input asp-for="DeadCount" type="number" /><br>
 
-    <p>
-        @Html.Label("RecoveredCount", "RecoveredCount")
-        @Html.TextBox("RecoveredCount", "", new { type = "number" })
-    </p>
+    <span asp-validation-for="RecoveredCount" class="text-danger"></span>
+    <label asp-for="RecoveredCount"></label><br>
+    <input asp-for="RecoveredCount" type="number" /><br>
 
-    <p>
-        @Html.Label("Vaccine", "Vaccine")
-        @Html.CheckBox("Vaccine", false)
-    </p>
+    <span asp-validation-for="Vaccine" class="text-danger"></span>
+    <label asp-for="Vaccine"></label><br>
+    <input asp-for="Vaccine" type="checkbox" /><br>
 
-    <p>
-        <input type="submit" value="Add" />
-    </p>
-}
+    <button type="submit">Create country</button>
+</form>

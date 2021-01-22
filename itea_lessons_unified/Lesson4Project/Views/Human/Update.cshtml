@@ -1,5 +1,6 @@
 ﻿@model Human
-<form asp-controller="Human" asp-action="Create" method="post">
+<form asp-controller="Human" asp-action="Update" asp-route-id="@Model.Id"  method="post">
+
     <span asp-validation-for="FirstName" class="text-danger"></span>
     <label asp-for="FirstName"></label><br>
     <input asp-for="FirstName" type="text" /><br>
@@ -20,9 +21,9 @@
     <label asp-for="Gender"></label><br>
     <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()" type="text"></select> <br />
 
-    <span asp-validation-for="CountryId" ></span>
+    <span asp-validation-for="CountryId"></span>
     <label asp-for="CountryId">Country</label><br>
     <select asp-for="CountryId" asp-items="ViewBag.CountryList"></select><br>
 
-    <button type="submit">Create human</button>
+    <button type="submit">Update human</button>
 </form>

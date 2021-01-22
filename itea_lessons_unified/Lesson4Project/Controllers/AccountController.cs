@@ -1,5 +1,6 @@
 ﻿using Lesson4Project.Models;
 using Lesson4Project.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Lesson4Project.Controllers
 {
-    public class AccountController:Controller
+    public class AccountController : Controller
     {
 
         private UserManager<CustomUser> userManager;
@@ -20,6 +21,7 @@ namespace Lesson4Project.Controllers
             signInManager = _signInManager;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Register()
         {
@@ -28,24 +30,63 @@ namespace Lesson4Project.Controllers
 
 
         [HttpPost]
+        [AllowAnonymous]
         public IActionResult Register(AccountRegisterViewModel m)
         {
-            if(ModelState.IsValid)
+
+            if (ModelState.IsValid)
             {
-                var user = new CustomUser() {FirstName=m.FirstName, LastName=m.LastName, UserName = m.UserName, Email = m.Email };
+                var user = new CustomUser() { FirstName = m.FirstName, LastName = m.LastName, UserName = m.UserName, Email = m.Email };
                 var createTask = userManager.CreateAsync(user, m.Password);
 
-                if(createTask.Result.Succeeded)
+                if (createTask.Result.Succeeded)
                 {
-                    return RedirectToAction("Index","Home");
+                    return RedirectToAction("Index", "Home");
                 }
 
-                foreach(var error in createTask.Result.Errors)
+                foreach (var error in createTask.Result.Errors)
                 {
-                    ModelState.AddModelError("",error.Description);
+                    ModelState.AddModelError("", error.Description);
                 }
             }
             return View();
+        }
+
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> Login(AccountLoginViewModel m, string returnurl)
+        {
+            if (ModelState.IsValid)
+            {
+                var signInTask = await signInManager.PasswordSignInAsync(m.Email, m.Password,m.RememberMe, false);
+                if (signInTask.Succeeded)
+                {
+                    if (!string.IsNullOrEmpty(returnurl))
+                    {
+                        return Redirect(returnurl);
+                    }
+                      return RedirectToAction("Index", "Home");
+                }
+
+                ModelState.AddModelError("", "Incorrect username or password");
+
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

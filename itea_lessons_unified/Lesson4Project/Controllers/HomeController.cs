@@ -1,5 +1,7 @@
 ﻿using Lesson4Project.Models;
+using Lesson4Project.Services;
 using Lesson4Project.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -14,12 +16,15 @@ namespace Lesson4Project.Controllers
     {
         private IHumanRepository humanRep { get; }
         private ICountryRepository countryRep { get; }
+
+        private IMessageSender sender { get; }
         public object HomaInfoViewModel { get; private set; }
 
-        public HomeController(IHumanRepository _humanRep, ICountryRepository _countryRep)
+        public HomeController(IHumanRepository _humanRep, ICountryRepository _countryRep, IMessageSender _sender)
         {
             humanRep = _humanRep;
             countryRep = _countryRep;
+            sender = _sender;
         }
 
         public IActionResult Info()
@@ -29,8 +34,11 @@ namespace Lesson4Project.Controllers
             HomeInfoViewModel model = new HomeInfoViewModel(){ Humans= humans, Countries= countries };
             return View(model);
         }
+
+        [AllowAnonymous]
         public IActionResult Index()
         {
+            //sender.SendMessage();
             return View();
         }
         public IActionResult Privacy()

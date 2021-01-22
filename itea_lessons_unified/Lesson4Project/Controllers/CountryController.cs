@@ -32,8 +32,12 @@ namespace Lesson4Project.Controllers
         [HttpPost]
         public IActionResult Create (Country c)
         {
-            countryRep.CreateCountry(c);
-            return Redirect("~/Country/Index");
+            if(ModelState.IsValid)
+            {
+                countryRep.CreateCountry(c);
+                return Redirect("~/Country/Index");
+            }
+            return View();
         }
     }
 }
