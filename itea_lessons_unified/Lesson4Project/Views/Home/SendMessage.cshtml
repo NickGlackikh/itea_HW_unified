@@ -1,7 +1,7 @@
 ﻿@model HomeSendViewModel
 <form asp-controller="Home" asp-action="SendMessage" method="post">
     <span asp-validation-for="AddrTo" class="text-danger"></span>
-    <label asp-for="AddrTo"></label><br>
+    <label asp-for="AddrTo">Destination</label><br>
     <input asp-for="AddrTo" type="text" /><br>
 
     <span asp-validation-for="Text" class="text-danger"></span>
@@ -13,8 +13,8 @@
     <label>SMS:</label>
     <input type="radio" name="MessageType" value="sms" checked />
     <label>Email:</label>
-    <input type="radio" name="MessageType" value="email" />
+    <input type="radio" name="MessageType" value="email" /><br>
 
 
-    <button type="submit">Create human</button>
+    <button type="submit">Send</button>
 </form>
