@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Lesson4Project.Configurations;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,18 +13,20 @@ namespace Lesson4Project.Services
 {
     public class SMSMessageSender:IMessageSender
     {
-        private readonly IConfiguration configuration;
-        public SMSMessageSender(IConfiguration _configuration)
+        private readonly InfestationSmsConfiguration smsConfiguration;
+
+        public SMSMessageSender(IOptions<InfestationSmsConfiguration> options)
         {
-            configuration = _configuration;
+            smsConfiguration = options.Value;
         }
-        public void SendMessage()
+        public void SendMessage(string addressTo, string messageText)
         {
-            TwilioClient.Init(configuration.GetSection("Twilio")["AccountId"],
-                              configuration.GetSection("Twilio")["AuthToken"]);
-            var message = MessageResource.Create(from: new PhoneNumber("+14704144273"), 
-                                                 to: new PhoneNumber("+380662959548"), 
-                                                 body:"Test SMS");
+
+            TwilioClient.Init(smsConfiguration.AccountId, smsConfiguration.AuthToken);
+                              
+            var message = MessageResource.Create(from: new PhoneNumber(smsConfiguration.PhoneNumberSend), 
+                                                 to: new PhoneNumber(addressTo), 
+                                                 body: messageText);
             Console.WriteLine(message.Status);
         }
     }

@@ -1,3 +1,4 @@
+using Lesson4Project.Configurations;
 using Lesson4Project.Models;
 using Lesson4Project.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -21,15 +22,15 @@ namespace Lesson4Project
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration _configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<InfestationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("InfestationDbConnectionNew")));
+            services.AddDbContext<InfestationDbContext>(options => options.UseSqlServer(_configuration.GetConnectionString("InfestationDbConnectionNew")));
             
             services.AddControllersWithViews(configure =>
             {
@@ -37,11 +38,10 @@ namespace Lesson4Project
                 configure.Filters.Add(new AuthorizeFilter(policy));
             });
             
-            
             services.AddScoped<IHumanRepository, HumanRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
-            //services.AddScoped<IMessageSender, EmailMessageSender>();
-            services.AddScoped<IMessageSender, SMSMessageSender>();
+
+            services.AddScoped<ServiceFactory>();
             services.AddIdentity<CustomUser,IdentityRole>().AddEntityFrameworkStores<InfestationDbContext>();
             services.Configure<IdentityOptions>(options=>
             {
@@ -49,7 +49,8 @@ namespace Lesson4Project
                 options.Password.RequiredLength = 3;
                 options.Password.RequireNonAlphanumeric = false;
             });
-            //services.AddScoped<HumanRepository>();
+            services.Configure<InfestationEmailConfiguration>(_configuration.GetSection("Infestation:Email"));
+            services.Configure<InfestationSmsConfiguration>(_configuration.GetSection("Infestation:Twilio"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

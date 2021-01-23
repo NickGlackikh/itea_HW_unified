@@ -7,7 +7,6 @@ namespace Lesson4Project.Services
 {
     public interface IMessageSender
     {
-        //Twilio Aezakmi228Baguvix12
-        void SendMessage();
+        void SendMessage(string addressTo, string messageText);
     }
 }

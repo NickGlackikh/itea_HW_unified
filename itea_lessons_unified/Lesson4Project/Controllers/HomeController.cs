@@ -16,15 +16,16 @@ namespace Lesson4Project.Controllers
     {
         private IHumanRepository humanRep { get; }
         private ICountryRepository countryRep { get; }
-
-        private IMessageSender sender { get; }
+        private ServiceFactory factory { get; }
+        
         public object HomaInfoViewModel { get; private set; }
 
-        public HomeController(IHumanRepository _humanRep, ICountryRepository _countryRep, IMessageSender _sender)
+        public HomeController(IHumanRepository _humanRep, ICountryRepository _countryRep,
+                              ServiceFactory _factory)
         {
             humanRep = _humanRep;
             countryRep = _countryRep;
-            sender = _sender;
+            factory = _factory;
         }
 
         public IActionResult Info()
@@ -38,9 +39,24 @@ namespace Lesson4Project.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
-            //sender.SendMessage();
             return View();
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult SendMessage()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult SendMessage(HomeSendViewModel m)
+        {
+            factory.getSenderType(m.MessageType).SendMessage(m.AddrTo, m.Text);
+            return Redirect("~/Home/Index");
+        }
+
         public IActionResult Privacy()
         {
             return View();
