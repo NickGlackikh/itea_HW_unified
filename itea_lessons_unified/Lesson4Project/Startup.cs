@@ -37,9 +37,12 @@ namespace Lesson4Project
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 configure.Filters.Add(new AuthorizeFilter(policy));
             });
-            
+
+
+            services.AddMemoryCache();
             services.AddScoped<IHumanRepository, HumanRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<IRestApiExampleClient, RestApiExampleClient>();
 
             services.AddScoped<ServiceFactory>();
             services.AddIdentity<CustomUser,IdentityRole>().AddEntityFrameworkStores<InfestationDbContext>();
@@ -72,7 +75,9 @@ namespace Lesson4Project
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
+            // app.UseMiddleware<WriteToConsoleMiddleWare>("Hello");
+            app.UseWriteToConsole("Hello");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
