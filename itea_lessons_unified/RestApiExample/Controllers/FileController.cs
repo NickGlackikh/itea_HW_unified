@@ -10,10 +10,18 @@ namespace RestApiExample.Controllers
     public class FileController : Controller
     {
         [HttpGet("File")]
-        public FileContentResult GetTerrainImage()
+        public FileContentResult GetTerrainImage(string fileName)
         {
-            var fileBytes = System.IO.File.ReadAllBytes("wwwroot/TerrainImage55.jpg");
-            return new FileContentResult(fileBytes, "image/jpeg");
+            if (System.IO.File.Exists($"wwwroot/{fileName}.jpg"))
+            {
+                var fileBytes = System.IO.File.ReadAllBytes($"wwwroot/{fileName}.jpg");
+                return new FileContentResult(fileBytes, "image/jpeg");
+            }
+            else
+            {
+                var fileBytes = System.IO.File.ReadAllBytes("wwwroot/not-found.png");
+                return new FileContentResult(fileBytes, "image/jpeg");
+            }
         }
 
         

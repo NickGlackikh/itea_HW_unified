@@ -8,5 +8,6 @@ namespace Lesson4Project.Services
     public interface IRestApiExampleClient
     {
         public byte[] GetFileBytes();
+        public byte[] GetFileByName(string fileName);
     }
 }

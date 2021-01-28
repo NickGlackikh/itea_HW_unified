@@ -38,11 +38,14 @@ namespace Lesson4Project
                 configure.Filters.Add(new AuthorizeFilter(policy));
             });
 
-
-            services.AddMemoryCache();
             services.AddScoped<IHumanRepository, HumanRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
+            
+            services.AddMemoryCache();
+            services.AddHostedService<LoadFileHostedService>();
             services.AddScoped<IRestApiExampleClient, RestApiExampleClient>();
+            services.AddScoped<IFileService, FileService>();
+
 
             services.AddScoped<ServiceFactory>();
             services.AddIdentity<CustomUser,IdentityRole>().AddEntityFrameworkStores<InfestationDbContext>();
@@ -54,6 +57,7 @@ namespace Lesson4Project
             });
             services.Configure<InfestationEmailConfiguration>(_configuration.GetSection("Infestation:Email"));
             services.Configure<InfestationSmsConfiguration>(_configuration.GetSection("Infestation:Twilio"));
+            services.Configure<InfestationCacheConfiguration>(_configuration.GetSection("CacheParams"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,7 +81,7 @@ namespace Lesson4Project
             app.UseAuthorization();
 
             // app.UseMiddleware<WriteToConsoleMiddleWare>("Hello");
-            app.UseWriteToConsole("Hello");
+            //app.UseWriteToConsole("Hello");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
