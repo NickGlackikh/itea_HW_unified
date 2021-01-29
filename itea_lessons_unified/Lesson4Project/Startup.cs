@@ -43,9 +43,10 @@ namespace Lesson4Project
             
             services.AddMemoryCache();
             services.AddHostedService<LoadFileHostedService>();
+            services.AddHostedService<UploadFileHostedService>();
             services.AddScoped<IRestApiExampleClient, RestApiExampleClient>();
             services.AddScoped<IFileService, FileService>();
-
+            services.AddSingleton<FileProcessingChannel>();
 
             services.AddScoped<ServiceFactory>();
             services.AddIdentity<CustomUser,IdentityRole>().AddEntityFrameworkStores<InfestationDbContext>();

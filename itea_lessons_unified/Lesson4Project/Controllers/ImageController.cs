@@ -15,13 +15,13 @@ namespace Lesson4Project.Controllers
     {
         private readonly IRestApiExampleClient _client;
         private readonly IFileService _fileService;
-      //  private readonly FileProcessingChannel _channel;
+        private readonly FileProcessingChannel _channel;
 
         public ImageController(IRestApiExampleClient client,
-                               /*FileProcessingChannel channel,*/ IFileService fileService)
+                               FileProcessingChannel channel, IFileService fileService)
         {
             _client = client;
-          //  _channel = channel;
+            _channel = channel;
             _fileService = fileService;
         }
 
@@ -59,21 +59,22 @@ namespace Lesson4Project.Controllers
             return View(viewModel);
         }
 
-        //[HttpPost]
-        //public IActionResult Upload(ImageUploadViewModel viewModel)
-        //{
-        //    var entryOptions = new MemoryCacheEntryOptions();
-        //    entryOptions.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(2);
+        [HttpPost]
+        public async Task<IActionResult> Upload(ImageUploadViewModel viewModel)
+        {
+            var entryOptions = new MemoryCacheEntryOptions();
+            entryOptions.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(2);
 
-        //    if (viewModel.File?.Length > 0)
-        //    {
-        //        _channel.SetAsync(viewModel.File);
-        //        viewModel.File = null;
-        //        viewModel.UploadStage = UploadStage.Comleted;
-        //    }
+            if (viewModel.File?.Length > 0)
+            {
+                //_client.UploadFile(viewModel.File);
+                await _channel.SetAsync(viewModel.File);
+                viewModel.File = null;
+                viewModel.UploadStage = UploadStage.Comleted;
+            }
 
-        //    return View(viewModel);
-        //}
+            return View(viewModel);
+        }
 
 
         //public IActionResult Get1()

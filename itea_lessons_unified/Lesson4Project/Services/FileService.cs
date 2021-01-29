@@ -10,19 +10,21 @@ namespace Lesson4Project.Services
 {
     public class FileService:IFileService
     {
-        private static string cacheKey = $"image_{DateTime.UtcNow:yyyy_mm_dd}";
+        
         private readonly InfestationCacheConfiguration _cacheConfiguration;
         private readonly IMemoryCache _cache;
+        private static string _cacheKey;
 
         public FileService(IMemoryCache cache, IOptions<InfestationCacheConfiguration> options)
         {
             _cache = cache;
             _cacheConfiguration = options.Value;
+            _cacheKey = _cacheConfiguration.cacheKey;
         }
             
         public byte[] GetFileFromCache(string fileName)
         {
-            var result = _cache.Get<byte[]>(fileName+cacheKey);
+            var result = _cache.Get<byte[]>(fileName+_cacheKey);
             return result;
         }
 
@@ -30,7 +32,7 @@ namespace Lesson4Project.Services
         {
             var options = new MemoryCacheEntryOptions();
             options.SlidingExpiration = TimeSpan.FromMinutes(_cacheConfiguration.cacheExpireTime);
-            _cache.Set<byte[]>(fileName+cacheKey, clientFile, options);
+            _cache.Set<byte[]>(fileName+_cacheKey, clientFile, options);
         }
     }
 }

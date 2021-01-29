@@ -21,16 +21,26 @@ namespace Lesson4Project.Services
             await _channel.Writer.WriteAsync(file);
         }
 
-        public IFormFile Get()
+        private IFormFile Get()
         {
             IFormFile file;
             _channel.Reader.TryRead(out file);
             return file;
         }
 
-        public IAsyncEnumerable<IFormFile> GetAllAsync()
+        private IFormFile ReturnFile(IFormFile file)
         {
-            return _channel.Reader.ReadAllAsync();
+            return file;
+        }
+
+        public async Task<IFormFile> GetFileAsync()
+        {
+            return await Task.Run(()=>Get());
+        }
+
+        public  IAsyncEnumerable<IFormFile> GetAllAsync()
+        {
+              return _channel.Reader.ReadAllAsync();
         }
     }
 }

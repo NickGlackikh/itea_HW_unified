@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,6 +26,12 @@ namespace RestApiExample.Controllers
             }
         }
 
-        
+        [HttpPost("File")]
+        public void UploadFile([FromBody]string file, [FromQuery]string filename, [FromServices]IWebHostEnvironment webHost)
+        {
+            var fileBytes = Convert.FromBase64String(file);
+            var filePath = Path.Combine(webHost.WebRootPath, filename);
+            System.IO.File.WriteAllBytes(filePath,fileBytes);
+        }
     }
 }
