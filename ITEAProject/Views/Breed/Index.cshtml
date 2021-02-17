@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Breed>
+
+<a asp-action="Create" asp-controller="Breed">Create New</a>
+<table class="table" style="text-align: center">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+    </tr>
+    @foreach (var breed in Model)
+    {
+<tr>
+    <td>@breed.Id</td>
+    <td>@breed.BreedName</td>
+    <td>@breed.BreedDescription</td>
+    <td><a asp-action="Update" asp-controller="Breed" asp-route-id="@breed.Id">Edit</a></td>
+    <td><a asp-action="Delete" asp-controller="Breed" asp-route-id="@breed.Id">Delete</a></td>
+</tr>
+    }
+</table>

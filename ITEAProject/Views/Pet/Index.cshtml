@@ -1,0 +1,25 @@
+﻿@model IEnumerable<PetIndexViewModel>
+@{
+    ViewData["Title"] = "Pets";
+}
+
+<a asp-action="Create" asp-controller="Pet">Create New</a>
+<table class="table" style="text-align: center">
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Breed</th>
+        <th>Owner</th>
+    </tr>
+    @foreach (var pet in Model)
+    {
+        <tr>
+            <td>@pet.Name</td>
+            <td>@pet.Age</td>
+            <td>@pet.BreedName</td>
+            <td>@pet.OwnerName</td>
+            <td><a asp-action="Edit"   asp-controller="Pet" asp-route-id="@pet.Id">Edit</a></td>
+            <td><a asp-action="Delete" asp-controller="Pet" asp-route-id="@pet.Id">Delete</a></td>
+        </tr>
+    }
+</table>

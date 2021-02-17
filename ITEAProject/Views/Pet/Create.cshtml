@@ -1,0 +1,34 @@
+﻿@model Pet
+<form asp-controller="Pet" asp-action="Create" method="post">
+
+    <span asp-validation-for="PetName" class="text-danger"></span>
+    <label asp-for="PetName">Name</label><br>
+    <input asp-for="PetName" type="text" /><br>
+
+    <span asp-validation-for="Age" class="text-danger"></span>
+    <label asp-for="Age"></label><br>
+    <input asp-for="Age" type="number" /><br>
+
+    <span asp-validation-for="Gender" class="text-danger"></span>
+    <label asp-for="Gender"></label><br>
+    <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()" type="text"></select> <br />
+
+    <span asp-validation-for="BreedId"></span>
+    <label asp-for="BreedId">Breed:</label>
+    <br>
+    <select asp-for="BreedId" asp-items="ViewBag.BreedsList"></select>
+    <br>
+
+    <span asp-validation-for="BranchId"></span>
+    <label asp-for="BranchId">Branch Address:</label>
+    <br>
+    <select asp-for="BranchId" asp-items="ViewBag.BranchList"></select>
+    <br>
+
+    @*<span asp-validation-for="OwnerId"></span>
+    <label asp-for="OwnerId">Owner:</label>
+    <br>
+    <select asp-for="OwnerId" asp-items="ViewBag.OwnerList"></select>
+    <br>*@
+    <button type="submit">Create pet</button>
+</form>

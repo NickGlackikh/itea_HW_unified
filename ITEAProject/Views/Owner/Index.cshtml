@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Owner>
+
+<a asp-action="Create" asp-controller="Owner">Create New</a>
+<table class="table" style="text-align: center">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Phone</th>
+    </tr>
+    @foreach (var owner in Model)
+    {
+<tr>
+    <td>@owner.Id</td>
+    <td>@owner.OwnerName</td>
+    <td>@owner.Address</td>
+    <td>@owner.Phone</td>
+    <td><a asp-action="Update" asp-controller="Owner" asp-route-id="@owner.Id">Edit</a></td>
+    <td><a asp-action="Delete" asp-controller="Owner" asp-route-id="@owner.Id">Delete</a></td>
+</tr>
+    }
+</table>

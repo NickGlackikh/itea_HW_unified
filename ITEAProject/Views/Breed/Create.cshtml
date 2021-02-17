@@ -1,0 +1,12 @@
+﻿@model Breed
+<form asp-controller="Breed" asp-action="Create" method="post">
+    <span asp-validation-for="BreedName" class="text-danger"></span>
+    <label asp-for="BreedName">BreedName</label><br>
+    <input asp-for="BreedName" type="text" /><br>
+
+    <span asp-validation-for="BreedDescription" class="text-danger"></span>
+    <label asp-for="BreedDescription">Description</label><br>
+    <input asp-for="BreedDescription" type="tel" /><br>
+
+    <button type="submit">Create Breed</button>
+</form>

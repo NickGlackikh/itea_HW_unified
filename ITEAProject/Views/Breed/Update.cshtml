@@ -1,0 +1,13 @@
+﻿@model Breed
+<form asp-controller="Breed" asp-action="Update" asp-route-id="@Model.Id"  method="post">
+
+    <span asp-validation-for="BreedName" class="text-danger"></span>
+    <label asp-for="BreedName">BreedName</label><br>
+    <input asp-for="BreedName" type="text" /><br>
+
+    <span asp-validation-for="BreedDescription" class="text-danger"></span>
+    <label asp-for="BreedDescription">BreedDescription</label><br>
+    <input asp-for="BreedDescription" type="text" /><br>
+
+    <button type="submit">Save Changes</button>
+</form>

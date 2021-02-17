@@ -1,0 +1,17 @@
+﻿@model Owner
+<form asp-controller="Owner" asp-action="Update" asp-route-id="@Model.Id" method="post">
+
+    <span asp-validation-for="OwnerName" class="text-danger"></span>
+    <label asp-for="OwnerName">Name</label><br>
+    <input asp-for="OwnerName" type="text" /><br>
+
+    <span asp-validation-for="Address" class="text-danger"></span>
+    <label asp-for="Address">Address</label><br>
+    <input asp-for="Address" type="text" /><br>
+
+    <span asp-validation-for="Phone" class="text-danger"></span>
+    <label asp-for="Phone">Phone</label><br>
+    <input asp-for="Phone" type="tel" /><br>
+
+    <button type="submit">Save Changes</button>
+</form>

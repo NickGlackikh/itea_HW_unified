@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Branch>
+
+<a asp-action="Create" asp-controller="Branch">Create New</a>
+<table class="table" style="text-align: center">
+    <tr>
+        <th>Id</th>
+        <th>Address</th>
+        <th>Phone</th>
+    </tr>
+    @foreach (var branch in Model)
+    {
+<tr>
+    <td>@branch.Id</td>
+    <td>@branch.Address</td>
+    <td>@branch.Phone</td>
+    <td><a asp-action="Update" asp-controller="Branch" asp-route-id="@branch.Id">Edit</a></td>
+    <td><a asp-action="Delete" asp-controller="Branch" asp-route-id="@branch.Id">Delete</a></td>
+    <td><a asp-action="Index" asp-controller="Pet" asp-route-id="@branch.Id">Watch pets</a></td>
+</tr>
+    }
+</table>
